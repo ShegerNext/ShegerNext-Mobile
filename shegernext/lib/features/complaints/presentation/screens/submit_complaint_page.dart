@@ -6,7 +6,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
 
 class SubmitComplaintPage extends StatefulWidget {
-  const SubmitComplaintPage({super.key});
+  const SubmitComplaintPage({super.key, this.initialCategory});
+
+  final String? initialCategory;
 
   @override
   State<SubmitComplaintPage> createState() => _SubmitComplaintPageState();
@@ -29,6 +31,14 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
     _categoryController.dispose();
     _locationController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialCategory != null) {
+      _categoryController.text = widget.initialCategory!;
+    }
   }
 
   void _submit() {

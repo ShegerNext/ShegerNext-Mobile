@@ -9,9 +9,10 @@ import 'package:shegernext/injection_container.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
 import 'package:shegernext/features/auth/presentation/screens/login_page.dart';
 import 'package:shegernext/features/auth/presentation/screens/signup_page.dart';
+import 'package:shegernext/features/categories/presentation/screens/category_select_page.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.onboarding,
+  initialLocation: RouteNames.categorySelect,
   routes: <RouteBase>[
     GoRoute(
       path: RouteNames.onboarding,
@@ -38,14 +39,23 @@ final GoRouter appRouter = GoRouter(
           const MaterialPage(child: SignupPage()),
     ),
     GoRoute(
+      path: RouteNames.categorySelect,
+      name: RouteNames.categorySelect,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const MaterialPage(child: CategorySelectPage()),
+    ),
+    GoRoute(
       path: RouteNames.submitComplaint,
       name: RouteNames.submitComplaint,
-      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-        child: BlocProvider(
-          create: (_) => sl<ComplaintsBloc>(),
-          child: const SubmitComplaintPage(),
-        ),
-      ),
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        final String? category = state.extra as String?;
+        return MaterialPage(
+          child: BlocProvider(
+            create: (_) => sl<ComplaintsBloc>(),
+            child: SubmitComplaintPage(initialCategory: category),
+          ),
+        );
+      },
     ),
   ],
 );
