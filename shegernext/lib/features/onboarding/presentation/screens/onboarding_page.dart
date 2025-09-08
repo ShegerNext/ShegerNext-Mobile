@@ -26,7 +26,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         curve: Curves.easeInOut,
       );
     } else {
-      if (mounted) context.go(RouteNames.home);
+      if (mounted) context.goNamed(RouteNames.submitComplaint);
     }
   }
 
@@ -46,7 +46,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         child: Column(
           children: <Widget>[
             _Header(
-              onSkip: () => context.go(RouteNames.home),
+              onSkip: () => context.goNamed(RouteNames.submitComplaint),
               controller: _pageController,
               pageCount: 4,
             ),
@@ -192,7 +192,7 @@ class _OnboardSlide extends StatelessWidget {
     required this.iconBackgroundColor,
     required this.iconColor,
     required this.indicatorActiveColor,
-    this.icon = Icons.chat_bubble_outline
+    this.icon = Icons.chat_bubble_outline,
   });
 
   final String title;
@@ -220,11 +220,7 @@ class _OnboardSlide extends StatelessWidget {
                 color: iconBackgroundColor,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 42,
-              ),
+              child: Icon(icon, color: iconColor, size: 42),
             ),
             const SizedBox(height: 24),
             Text(

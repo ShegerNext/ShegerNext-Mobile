@@ -59,6 +59,10 @@ dependencies:
   speech_to_text: ^7.3.0
   # For internationalization
   intl: ^0.20.2
+  # Camera and image picking
+  image_picker: ^1.1.2
+  # Geolocation services
+  geolocator: ^13.0.2
 
 dev_dependencies:
   flutter_test:
