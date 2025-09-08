@@ -86,7 +86,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     title: 'Community Voice',
                     subtitle: 'Upvote important issues to increase priority',
                     description: '',
-                    iconBackgroundColor: Colors.purple,
+                    iconBackgroundColor: Color.fromARGB(255, 94, 30, 52),
                     iconColor: Colors.white,
                     indicatorActiveColor: Color(0xFF3E6BFF),
                     icon: Icons.check_circle,
