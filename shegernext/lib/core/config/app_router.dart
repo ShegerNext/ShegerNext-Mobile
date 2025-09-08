@@ -7,6 +7,8 @@ import 'package:shegernext/features/complaints/presentation/screens/submit_compl
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shegernext/injection_container.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
+import 'package:shegernext/features/auth/presentation/screens/login_page.dart';
+import 'package:shegernext/features/auth/presentation/screens/signup_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: RouteNames.onboarding,
@@ -22,6 +24,18 @@ final GoRouter appRouter = GoRouter(
       name: RouteNames.home,
       pageBuilder: (BuildContext context, GoRouterState state) =>
           const MaterialPage(child: PlaceholderHomePage()),
+    ),
+    GoRoute(
+      path: RouteNames.login,
+      name: RouteNames.login,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const MaterialPage(child: LoginPage()),
+    ),
+    GoRoute(
+      path: RouteNames.signup,
+      name: RouteNames.signup,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const MaterialPage(child: SignupPage()),
     ),
     GoRoute(
       path: RouteNames.submitComplaint,
