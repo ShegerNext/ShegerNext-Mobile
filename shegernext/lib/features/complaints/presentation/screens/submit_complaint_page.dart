@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shegernext/core/component/bottom_nav_bar.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
 
 class SubmitComplaintPage extends StatefulWidget {
@@ -241,6 +242,7 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
           );
         },
       ),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 }

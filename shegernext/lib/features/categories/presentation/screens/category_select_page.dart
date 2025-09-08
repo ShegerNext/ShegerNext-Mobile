@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shegernext/core/component/bottom_nav_bar.dart';
 import 'package:shegernext/core/config/route_names.dart';
 
 class CategorySelectPage extends StatelessWidget {
@@ -90,6 +91,7 @@ class CategorySelectPage extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 0),
     );
   }
 

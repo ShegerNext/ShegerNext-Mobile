@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shegernext/core/component/bottom_nav_bar.dart';
 import 'package:shegernext/features/user_posts/presentation/bloc/user_posts_bloc.dart';
 
 class UserPostsPage extends StatefulWidget {
@@ -101,6 +102,7 @@ class _UserPostsPageState extends State<UserPostsPage> {
           },
         ),
       ),
+      bottomNavigationBar: const BottomNavBar(currentIndex: 1),
     );
   }
 }
