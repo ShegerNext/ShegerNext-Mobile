@@ -3,4 +3,6 @@ class RouteNames {
   static const String onboarding = '/onboarding';
   static const String home = '/home';
   static const String submitComplaint = '/submit-complaint';
+  static const String login = '/auth/login';
+  static const String signup = '/auth/signup';
 }

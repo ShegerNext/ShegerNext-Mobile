@@ -8,6 +8,11 @@ import 'package:shegernext/features/complaints/data/repository/complaints_reposi
 import 'package:shegernext/features/complaints/domain/repository/complaints_repository.dart';
 import 'package:shegernext/features/complaints/domain/usecases/submit_complaint.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
+import 'package:shegernext/features/auth/data/datasources/auth_remote_datasource.dart';
+import 'package:shegernext/features/auth/data/repository/auth_repository_impl.dart';
+import 'package:shegernext/features/auth/domain/repository/auth_repository.dart';
+import 'package:shegernext/features/auth/domain/usecases/auth_usecases.dart';
+import 'package:shegernext/features/auth/presentation/bloc/auth_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -32,4 +37,15 @@ Future<void> init() async {
   );
   sl.registerLazySingleton(() => SubmitComplaint(repository: sl()));
   sl.registerFactory(() => ComplaintsBloc(submitComplaint: sl()));
+
+  // Auth
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(client: sl()),
+  );
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(remote: sl()),
+  );
+  sl.registerLazySingleton(() => Login(repository: sl()));
+  sl.registerLazySingleton(() => Signup(repository: sl()));
+  sl.registerFactory(() => AuthBloc(login: sl(), signup: sl(), storage: sl()));
 }

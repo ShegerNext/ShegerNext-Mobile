@@ -26,7 +26,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         curve: Curves.easeInOut,
       );
     } else {
-      if (mounted) context.goNamed(RouteNames.submitComplaint);
+      if (mounted) context.goNamed(RouteNames.login);
     }
   }
 
@@ -46,7 +46,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         child: Column(
           children: <Widget>[
             _Header(
-              onSkip: () => context.goNamed(RouteNames.submitComplaint),
+              onSkip: () => context.goNamed(RouteNames.login),
               controller: _pageController,
               pageCount: 4,
             ),
