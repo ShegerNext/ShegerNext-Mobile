@@ -44,3 +44,5 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     return (response.data as Map<String, dynamic>)['token'] as String;
   }
 }
+
+
