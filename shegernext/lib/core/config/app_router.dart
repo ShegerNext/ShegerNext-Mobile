@@ -10,6 +10,8 @@ import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc
 import 'package:shegernext/features/auth/presentation/screens/login_page.dart';
 import 'package:shegernext/features/auth/presentation/screens/signup_page.dart';
 import 'package:shegernext/features/categories/presentation/screens/category_select_page.dart';
+import 'package:shegernext/features/user_posts/presentation/screens/user_posts_page.dart';
+import 'package:shegernext/features/user_posts/presentation/bloc/user_posts_bloc.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: RouteNames.categorySelect,
@@ -43,6 +45,16 @@ final GoRouter appRouter = GoRouter(
       name: RouteNames.categorySelect,
       pageBuilder: (BuildContext context, GoRouterState state) =>
           const MaterialPage(child: CategorySelectPage()),
+    ),
+    GoRoute(
+      path: RouteNames.userPosts,
+      name: RouteNames.userPosts,
+      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+        child: BlocProvider(
+          create: (_) => sl<UserPostsBloc>(),
+          child: const UserPostsPage(),
+        ),
+      ),
     ),
     GoRoute(
       path: RouteNames.submitComplaint,

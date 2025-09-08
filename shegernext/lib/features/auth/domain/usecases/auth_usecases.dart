@@ -20,3 +20,5 @@ class Signup {
     required String password,
   }) => _repository.signup(username: username, fan: fan, password: password);
 }
+
+
