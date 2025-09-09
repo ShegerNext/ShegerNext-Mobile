@@ -11,9 +11,9 @@ class UserPostsBloc extends Bloc<UserPostsEvent, UserPostsState> {
   UserPostsBloc({
     required GetUserPosts getUserPosts,
     required FlutterSecureStorage storage,
-  }) : _getUserPosts = getUserPosts,
-       _storage = storage,
-       super(UserPostsInitial()) {
+  })  : _getUserPosts = getUserPosts,
+        _storage = storage,
+        super(UserPostsInitial()) {
     on<LoadUserPostsEvent>(_onLoadUserPosts);
   }
 

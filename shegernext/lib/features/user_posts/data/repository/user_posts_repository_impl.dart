@@ -19,9 +19,7 @@ class UserPostsRepositoryImpl implements UserPostsRepository {
       final List<ComplaintModel> models = await _remote.getUserPosts(
         accessToken: accessToken,
       );
-      final List<Complaint> complaints = models
-          .map((model) => model as Complaint)
-          .toList();
+      final List<Complaint> complaints = models;
       return Right(complaints);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));

@@ -20,7 +20,7 @@ class UserPostsRemoteDataSourceImpl implements UserPostsRemoteDataSource {
       options: Options(headers: {'Authorization': 'Bearer $accessToken'}),
     );
 
-    final List<dynamic> postsData = postsResponse.data as List<dynamic>;
+    final List postsData = postsResponse.data as List;
     return postsData
         .map(
           (json) =>
