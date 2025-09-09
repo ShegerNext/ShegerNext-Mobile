@@ -8,6 +8,7 @@ import 'package:shegernext/core/component/bottom_nav_bar.dart';
 import 'package:shegernext/core/config/route_names.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
 import 'package:shegernext/features/complaints/presentation/screens/%20cloud_helper.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SubmitComplaintPage extends StatefulWidget {
   const SubmitComplaintPage({super.key, this.initialCategory});
@@ -28,6 +29,9 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
   double? _latitude;
   double? _longitude;
 
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+
   @override
   void dispose() {
     _descriptionController.dispose();
@@ -41,6 +45,30 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
     super.initState();
     if (widget.initialCategory != null) {
       _categoryController.text = widget.initialCategory!;
+    }
+
+    _speech = stt.SpeechToText();
+  }
+
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => debugPrint('onStatus: $val'),
+        onError: (val) => debugPrint('onError: $val'),
+      );
+
+
+      if (available) {
+        setState(() => _isListening = true);
+        _speech.listen(
+          onResult: (val) => setState(() {
+            _descriptionController.text = val.recognizedWords;
+          }),
+        );
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speech.stop();
     }
   }
 
@@ -103,13 +131,22 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
                       maxLines: 8,
                       validator: (String? v) =>
                           (v == null || v.trim().isEmpty) ? 'Required' : null,
-                      decoration: _filledDecoration(
-                        context,
-                        hint: 'Describe the issue in detail...',
-                        icon: Icons.edit_outlined,
-                      ),
+                      decoration:
+                          _filledDecoration(
+                            context,
+                            hint: 'Describe the issue in detail...',
+                            icon: null, // remove the static icon here
+                          ).copyWith(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isListening ? Icons.mic : Icons.mic_off,
+                              ),
+                              onPressed: _listen,
+                            ),
+                          ),
                     ),
                   ),
+
                   _SectionCard(
                     title: 'Category (optional)',
                     child: TextFormField(
