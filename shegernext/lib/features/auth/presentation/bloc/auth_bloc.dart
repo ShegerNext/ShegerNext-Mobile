@@ -54,8 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       password: event.password,
     );
     result.fold((l) => emit(AuthError(l.message)), (token) async {
-      await _storage.write(key: 'access_token', value: token);
-      emit(Authenticated(token));
+      emit(AuthLoading());
     });
   }
 

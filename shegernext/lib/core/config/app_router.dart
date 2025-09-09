@@ -14,7 +14,7 @@ import 'package:shegernext/features/user_posts/presentation/screens/user_posts_p
 import 'package:shegernext/features/user_posts/presentation/bloc/user_posts_bloc.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteNames.categorySelect,
+  initialLocation: RouteNames.onboarding,
   routes: <RouteBase>[
     GoRoute(
       path: RouteNames.onboarding,

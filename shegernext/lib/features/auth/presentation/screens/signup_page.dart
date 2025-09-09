@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shegernext/core/config/route_names.dart';
+import 'package:shegernext/features/auth/presentation/bloc/auth_bloc.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -29,7 +31,13 @@ class _SignupPageState extends State<SignupPage> {
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
-    // TODO: dispatch signup bloc event
+    context.read<AuthBloc>().add(
+      SignupSubmitted(
+        username: _usernameController.text.trim(),
+        fan: _fanController.text.trim(),
+        password: _passwordController.text.trim(),
+      ),
+    );
   }
 
   @override
@@ -188,5 +196,3 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 }
-
-

@@ -7,26 +7,16 @@ abstract class UserPostsRemoteDataSource {
 }
 
 class UserPostsRemoteDataSourceImpl implements UserPostsRemoteDataSource {
-  UserPostsRemoteDataSourceImpl({required Dio client})
-    : _client = client..options.baseUrl = EndPoints.baseUrl;
-  final Dio _client;
+  final Dio client;
+  UserPostsRemoteDataSourceImpl({required this.client});
 
   @override
   Future<List<ComplaintModel>> getUserPosts({
     required String accessToken,
   }) async {
-    // First get user info using access token
-    final Response<dynamic> userResponse = await _client.get(
-      '/user/profile',
-      options: Options(headers: {'Authorization': 'Bearer $accessToken'}),
-    );
-
-    final String userId =
-        (userResponse.data as Map<String, dynamic>)['id'] as String;
-
-    // Then get user posts using user ID and access token
-    final Response<dynamic> postsResponse = await _client.get(
-      '/user/$userId/complaints',
+    client.options.baseUrl = EndPoints.baseUrl;
+    final Response<dynamic> postsResponse = await client.get(
+      EndPoints.userPosts,
       options: Options(headers: {'Authorization': 'Bearer $accessToken'}),
     );
 

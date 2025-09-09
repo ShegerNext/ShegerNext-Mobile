@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shegernext/core/error/failures.dart';
+import 'package:shegernext/core/success/success.dart';
 import 'package:shegernext/features/auth/domain/repository/auth_repository.dart';
 
 class Login {
@@ -14,7 +15,7 @@ class Login {
 class Signup {
   Signup({required AuthRepository repository}) : _repository = repository;
   final AuthRepository _repository;
-  Future<Either<Failures, String>> call({
+  Future<Either<Failures, Success>> call({
     required String username,
     required String fan,
     required String password,

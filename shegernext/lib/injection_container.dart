@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shegernext/core/network/network_info.dart';
+import 'package:shegernext/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:shegernext/features/complaints/data/datasources/complaints_remote_datasource.dart';
 import 'package:shegernext/features/complaints/data/repository/complaints_repository_impl.dart';
 import 'package:shegernext/features/complaints/domain/repository/complaints_repository.dart';
@@ -45,8 +46,10 @@ Future<void> init() async {
 
   // Auth
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(client: sl()),
+    () => AuthRemoteDataSourceImpl(client: sl(), localDataSource: sl()),
   );
+
+  sl.registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl(storage: sl()));
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(remote: sl()),
   );

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shegernext/core/error/failures.dart';
+import 'package:shegernext/core/success/success.dart';
 import 'package:shegernext/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:shegernext/features/auth/domain/repository/auth_repository.dart';
 
@@ -25,22 +26,16 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failures, String>> signup({
+  Future<Either<Failures, Success>> signup({
     required String username,
     required String fan,
     required String password,
   }) async {
     try {
-      final String token = await _remote.signup(
-        username: username,
-        fan: fan,
-        password: password,
-      );
-      return Right(token);
+      await _remote.signup(username: username, fan: fan, password: password);
+      return Right(Success(message: 'Sign up successful'));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
   }
 }
-
-
