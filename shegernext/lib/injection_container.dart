@@ -42,7 +42,7 @@ Future<void> init() async {
     () => ComplaintsRepositoryImpl(remote: sl()),
   );
   sl.registerLazySingleton(() => SubmitComplaint(repository: sl()));
-  sl.registerFactory(() => ComplaintsBloc(submitComplaint: sl()));
+  sl.registerFactory(() => ComplaintsBloc(submitComplaint: sl(), storage: sl()));
 
   // Auth
   sl.registerLazySingleton<AuthRemoteDataSource>(

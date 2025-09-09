@@ -14,6 +14,7 @@ class ComplaintsRepositoryImpl implements ComplaintsRepository {
   @override
   Future<Either<Failures, Complaint>> submitComplaint(
     Complaint complaint,
+    String accessToken,
   ) async {
     try {
       final ComplaintModel model = ComplaintModel(
@@ -28,7 +29,7 @@ class ComplaintsRepositoryImpl implements ComplaintsRepository {
         status: complaint.status,
         createdAt: complaint.createdAt,
       );
-      final ComplaintModel response = await _remote.submitComplaint(model);
+      final ComplaintModel response = await _remote.submitComplaint(model, accessToken);
       return Right(response);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));

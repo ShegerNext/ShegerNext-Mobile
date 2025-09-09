@@ -9,7 +9,7 @@ class SubmitComplaint {
 
   final ComplaintsRepository _repository;
 
-  Future<Either<Failures, Complaint>> call(Complaint complaint) {
-    return _repository.submitComplaint(complaint);
+  Future<Either<Failures, Complaint>> call(Complaint complaint, String accessToken) {
+    return _repository.submitComplaint(complaint, accessToken);
   }
 }

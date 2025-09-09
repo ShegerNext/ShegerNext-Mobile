@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shegernext/core/component/bottom_nav_bar.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
+import 'package:shegernext/features/complaints/presentation/screens/%20cloud_helper.dart';
 
 class SubmitComplaintPage extends StatefulWidget {
   const SubmitComplaintPage({super.key, this.initialCategory});
@@ -42,17 +43,25 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
     }
   }
 
-  void _submit() {
+  void _submit() async {
     if (!_formKey.currentState!.validate()) return;
+
+    String? imageUrl;
+    if (_localImagePath != null) {
+      imageUrl = await CloudinaryHelper.uploadImage(File(_localImagePath!));
+      if (imageUrl == null) {
+        // Handle upload error (show a message, etc.)
+        return;
+      }
+    }
+
     context.read<ComplaintsBloc>().add(
       SubmitComplaintEvent(
         text: _descriptionController.text.trim(),
-        category: _categoryController.text.trim().isEmpty
-            ? null
-            : _categoryController.text.trim(),
+        category: _categoryController.text.trim(),
         latitude: _latitude,
         longitude: _longitude,
-        imageUrl: _imageUrl,
+        imageUrl: imageUrl,
       ),
     );
   }
