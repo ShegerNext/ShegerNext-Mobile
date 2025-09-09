@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shegernext/core/component/bottom_nav_bar.dart';
+import 'package:shegernext/core/config/route_names.dart';
 import 'package:shegernext/features/complaints/presentation/bloc/complaints_bloc.dart';
 import 'package:shegernext/features/complaints/presentation/screens/%20cloud_helper.dart';
 
@@ -22,7 +24,6 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
 
-  String? _imageUrl; // set after Supabase upload
   String? _localImagePath; // local path captured via camera
   double? _latitude;
   double? _longitude;
@@ -77,7 +78,7 @@ class _SubmitComplaintPageState extends State<SubmitComplaintPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Complaint submitted')),
             );
-            Navigator.of(context).pop();
+            context.goNamed(RouteNames.categorySelect);
           }
           if (state is ComplaintSubmitError) {
             ScaffoldMessenger.of(
